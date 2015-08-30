@@ -1,0 +1,26 @@
+{
+    "name": "hackQ",
+    "version": "1.0.0",
+    "description": "hackathon helper queue",
+    "scripts": {
+        "postinstall": "sudo sh ./bin/setup.sh install",
+        "prestart": "sh ./bin/build.sh",
+        "start": "node server.js",
+        "test": "mocha"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/bsoe003/hackQ.git"
+    },
+    "author": "",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/bsoe003/hackQ/issues"
+    },
+    "dependencies": {
+        "express": "4.11.2",
+        "mongodb": "1.4.30",
+        "mongoose": "3.8.23",
+        "hbs": "2.8.0"
+    }
+}
