@@ -65,7 +65,7 @@ grunt watch
 If you want to host your current development to the public before deployment, you may use ngrok script. After "npm start" command from above, type:
 
 ```
-./ngrok http 3000
+./bin/ngrok http 3000
 ```
 
 This will generate temporary URL for public to see.

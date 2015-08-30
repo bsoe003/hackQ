@@ -39,7 +39,7 @@ module.exports = function(grunt) {
             },
             libraries: {
                 files: {
-                    'public/libraries.min.js': ['dev/libraries/*.min.js']
+                    'public/libraries.min.js': ['dev/libraries/*.js']
                 }
             },
             script: {
