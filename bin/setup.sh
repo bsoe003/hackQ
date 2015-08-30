@@ -4,7 +4,7 @@ function installed {
   echo "$return_"
 }
 
-NPM=(uglifyjs uglifycss babel mocha firebase-tools)
+NPM=(mocha firebase-tools grunt-cli)
 GEM=(sass bourbon travis)
 
 if [ -z "$1" ]; then

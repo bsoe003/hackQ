@@ -35,10 +35,9 @@ The following CLI tools are being installed:
 
 npm:
 
-* uglifyjs
-* uglifycss
-* babel
 * mocha
+* firebase-tools
+* grunt-cli
 
 gem:
 
@@ -52,8 +51,16 @@ You may run the Node.js server by typing:
 ```
 npm start
 ```
+ 
+However, during the development, the build step must be executed before the server starts. To do so:
+```
+sh ./bin/build.sh
+```
 
-This will call "sh ./bin/build.sh" before server activates.
+Build step can also be refreshed upon changes by typing the following after the above step:
+```
+grunt watch
+```
 
 If you want to host your current development to the public before deployment, you may use ngrok script. After "npm start" command from above, type:
 
@@ -62,6 +69,7 @@ If you want to host your current development to the public before deployment, yo
 ```
 
 This will generate temporary URL for public to see.
+
 
 ## Testing
 You may run Mocha unit test by typing:
