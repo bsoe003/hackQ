@@ -4,13 +4,13 @@ if [ -z "$1" ]; then
 fi
 
 if [ $1 == "development" ]; then
-	npm install
-	sh ./bin/build.sh
-	grunt watch &
-	npm start
+    npm install
+    sh ./bin/build.sh
+    grunt watch &
+    npm start
 fi
 
 if [ $1 == "production" ]; then
-	npm install --production
-	npm start
+    npm install --production
+    npm start
 fi
