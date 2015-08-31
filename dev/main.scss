@@ -1,59 +1,147 @@
-// @import "bourbon/bourbon";
+@import "bourbon/bourbon";
 
-// $aside-bg: #434752;
-// $aside-width: 250px;
+$aside-bg: #434752;
+$aside-width: 275px;
 
-// $content-bg: #f1f5f8;
+$content-bg: #f1f5f8;
 
-// @font-face {
-//     font-family: 'Oxygen';
-//     font-weight: 300;
-//     src: url('/fonts/Oxygen-Light.ttf');
-// }
+@font-face {
+    font-family: 'Oxygen';
+    font-weight: 300;
+    src: url('/fonts/Oxygen-Light.ttf');
+}
 
-// @font-face {
-//     font-family: 'Oxygen';
-//     font-weight: 400;
-//     src: url('/fonts/Oxygen-Regular.ttf');
-// }
+@font-face {
+    font-family: 'Oxygen';
+    font-weight: 400;
+    src: url('/fonts/Oxygen-Regular.ttf');
+}
 
-// @font-face {
-//     font-family: 'Oxygen';
-//     font-weight: 700;
-//     src: url('/fonts/Oxygen-Bold.ttf');
-// }
+@font-face {
+    font-family: 'Oxygen';
+    font-weight: 700;
+    src: url('/fonts/Oxygen-Bold.ttf');
+}
 
-// body  {
-//     font-family: 'Oxygen', sans-serif;
-//     font-weight: 300;
-//     margin: 0 0 0 0;
-//     top: 0;
-//     left: 0;
-//     right: 0;
-//     bottom: 0;
-// }
+html, body  {
+    font-family: 'Muli', sans-serif;
+    font-weight: 300;
+    margin: 0 0 0 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    background-color: $content-bg;
+    @include user-select(none);
+}
 
-// #aside {
-//     position: fixed;
-//     float: left;
-//     top: 0;
-//     left: 0;
-//     width: $aside-width;
-//     height: 100%;
-//     overflow-y: scroll;
-//     overflow-x: hidden;
-//     background-color: $aside-bg;
-//     color: white;
-//     &::-webkit-scrollbar {
-//         display: none;
-//     }
-// }
+#wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: inline-block;
+}
 
-// #content {
-//     position: fixed;
-//     float: left;
-//     background-color: $content-bg;
-//     margin-left: $aside-width;
-//     width: 100%;
-//     height: 100%;
-// }
+#aside {
+    float: left;
+    position: fixed;
+    width: $aside-width;
+    height: 100%;
+    background-color: $aside-bg;
+    overflow-y: auto;
+    overflow-x: hidden;
+    &::-webkit-scrollbar {
+        visibility: hidden;
+        width: 10px;
+        display: none;
+    }
+}
+
+#content {
+    float: left;
+    height: 100%;
+}
+
+#search {
+    position: fixed;
+    @include display(flex);
+    @include align-items(center);
+    @include justify-content(center);
+    margin-top: 0;
+    width: $aside-width;
+    height: 70px;
+    border-bottom: 1px #575c6a solid;
+    background-color: $aside-bg;
+    input {
+        background-color: #696c74;
+        color: white;
+        font-family: 'Muli', sans-serif;
+        font-size: 14px;
+        border: none;
+        width: 80%;
+        height: 30px;
+        border-radius: 3px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    #ask {
+        border: none;
+        background-color: transparent;
+        color: white;
+        font-family: 'Muli', sans-serif;
+        font-size: 30px;
+        margin-left: 15px;
+        cursor: pointer;
+    }
+}
+
+#queueWrapper {
+    padding-top: 80px;
+}
+
+#queue {
+    color: white;
+    width: ($aside-width);
+    margin-left: 0;
+    border-collapse: collapse;
+    tr {
+        height: 75px;
+        cursor: pointer;
+        &:hover {
+            background-color: #4e525f;
+        }
+        td {
+            padding-left: 5px;
+            padding-right: 5px;
+            text-align: center;
+            border: 0;
+        }
+        .hacker{
+            padding-left: 5px;
+            padding-right: 5px;
+            text-align: left;
+            border: 0;
+        }
+        .hImgWrapper {
+            width: 75px;
+            border: 0;
+        }
+    }
+}
+
+.hName {
+    font-weight: 400;
+}
+
+.hLocation {
+    font-weight: 300;
+    font-size: 12px;
+}
+
+.hImg {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    border: #6b6c75 3px solid;
+}

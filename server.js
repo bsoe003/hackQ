@@ -21,4 +21,4 @@ app.listen(app.get('port'), function() {
 // app.get('/', index.view);
 // app.get('/q/sample', sample.main);
 // app.get('/q/sample/request', sample.request);
-app.get('/q', queue.view)
+app.get('/', queue.view)

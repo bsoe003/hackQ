@@ -50,17 +50,13 @@ module.exports = function(grunt) {
         },
         clean: ['dev/*.jsx.js', 'dev/*.css', 'dev/*.map', '.sass-cache'],
         watch: {
-            jsx: {
-                files: ['dev/*.jsx'],
+            script: {
+                files: ['dev/*.jsx', 'dev/*.js'],
                 tasks: ['react', 'uglify:script', 'clean']
             },
             libraries: {
                 files: ['dev/libraries/*.js'],
                 tasks: ['uglify:libraries', 'clean']
-            },
-            script: {
-                files: ['dev/*.js'],
-                tasks: ['uglify:script', 'clean']
             },
             scss: {
                 files: ['dev/main.scss'],
