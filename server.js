@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const hbs = require('hbs');
+const handlebars = require('express-handlebars');
 const path = require('path');
 
 const index = require('./routes/index');
@@ -8,8 +8,8 @@ const queue = require('./routes/queue');
 
 var app = express();
 app.set('port', process.env.PORT || 3000);
+app.engine('html', handlebars({defaultLayout: 'queue', extname: '.html'}));
 app.set('view engine', 'html');
-app.engine('html', hbs.__express);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // server

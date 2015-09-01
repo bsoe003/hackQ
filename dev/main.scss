@@ -5,7 +5,7 @@ $aside-width: 275px;
 
 $content-bg: #f1f5f8;
 
-@font-face {
+/*@font-face {
     font-family: 'Oxygen';
     font-weight: 300;
     src: url('/fonts/Oxygen-Light.ttf');
@@ -21,7 +21,7 @@ $content-bg: #f1f5f8;
     font-family: 'Oxygen';
     font-weight: 700;
     src: url('/fonts/Oxygen-Bold.ttf');
-}
+}*/
 
 html, body  {
     font-family: 'Muli', sans-serif;
@@ -60,7 +60,11 @@ html, body  {
 
 #content {
     float: left;
+    margin-left: $aside-width;
     height: 100%;
+    @include display(flex);
+    @include align-items(center);
+    @include justify-content(center);
 }
 
 #search {

@@ -1,8 +1,9 @@
 var QueueRow = React.createClass({
     render: function() {
         var hacker = this.props.hacker;
+        console.log(hacker)
         return(
-            <tr href={hacker.id}>
+            <tr href={hacker[".key"]}>
                 <td className="hImgWrapper"><img className="hImg" src="/img/dummy_profile.png" alt="" /></td>
                 <td className="hacker">
                     <span className="hName">{hacker.name}</span> <br/> <span className="hLocation">{hacker.location}</span>
@@ -44,24 +45,33 @@ var SearchBar = React.createClass({
 
 var SideTable = React.createClass({
     getInitialState: function() {
-        return { filterText: '' };
+        return {
+            filterText: '',
+            hackers: []
+        };
     },
     handleUserInput: function(filterText) {
         this.setState({ filterText: filterText });
     },
+    mixins: [ReactFireMixin],
+    componentWillMount: function() {
+        var firebase = new Firebase("https://hackq.firebaseio.com/hackers");
+        this.bindAsArray(firebase, "hackers");
+    },
     render: function() {
+        console.log(this.state.hackers);
         return (
             <div>
                 <SearchBar filterText={this.state.filterText} onUserInput={this.handleUserInput} />
-                <Queue hackers={this.props.hackers} filterText={this.state.filterText} />
+                <Queue hackers={this.state.hackers} filterText={this.state.filterText} />
             </div>
         );
 
     }
 });
 
-var HACKERS = [
-    { id: 1, name: "Brian Soe", location: "Galbriath Hall", time: "2:00 PM" },
-    { id: 2, name: "Eduardo Ramirez", location: "CSE Building", time: "1:30 PM" }
-];
-React.render(<SideTable hackers={HACKERS} />, document.getElementById("aside"));
+// var HACKERS = [
+//     { id: 1, name: "Brian Soe", location: "Galbriath Hall", time: "2:00 PM" },
+//     { id: 2, name: "Eduardo Ramirez", location: "CSE Building", time: "1:30 PM" }
+// ];
+React.render(<SideTable />, document.getElementById("aside"));
