@@ -1,7 +1,6 @@
 var QueueRow = React.createClass({
     render: function() {
         var hacker = this.props.hacker;
-        console.log(hacker)
         return(
             <tr href={hacker[".key"]}>
                 <td className="hImgWrapper"><img className="hImg" src="/img/dummy_profile.png" alt="" /></td>
@@ -18,7 +17,7 @@ var Queue = React.createClass({
         var rows = [];
         this.props.hackers.forEach(function(hacker) {
             if(!hacker.name.toLowerCase().contains(this.props.filterText.toLowerCase())) return;
-            rows.push(<QueueRow hacker={hacker} key={hacker.name} />);
+            rows.unshift(<QueueRow hacker={hacker} key={hacker.name} />);
         }.bind(this));
         return(
             <div id="queueWrapper">
@@ -55,11 +54,9 @@ var SideTable = React.createClass({
     },
     mixins: [ReactFireMixin],
     componentWillMount: function() {
-        var firebase = new Firebase("https://hackq.firebaseio.com/hackers");
         this.bindAsArray(firebase, "hackers");
     },
     render: function() {
-        console.log(this.state.hackers);
         return (
             <div>
                 <SearchBar filterText={this.state.filterText} onUserInput={this.handleUserInput} />
@@ -70,8 +67,4 @@ var SideTable = React.createClass({
     }
 });
 
-// var HACKERS = [
-//     { id: 1, name: "Brian Soe", location: "Galbriath Hall", time: "2:00 PM" },
-//     { id: 2, name: "Eduardo Ramirez", location: "CSE Building", time: "1:30 PM" }
-// ];
 React.render(<SideTable />, document.getElementById("aside"));
