@@ -3,3 +3,7 @@ String.prototype.contains = function(substring) {
 }
 
 var firebase = new Firebase("https://hackq.firebaseio.com/hackers");
+
+if(localStorage.getItem("hackers") === null) {
+	localStorage.setItem("hackers", JSON.stringify([]));
+}

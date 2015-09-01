@@ -3,27 +3,37 @@
 $aside-bg: #434752;
 $aside-width: 275px;
 
-$content-bg: #f1f5f8;
+$content-bg: #FBFCFD;
 
 $positive: #65be71;
 $font: 'Muli', sans-serif;
-/*@font-face {
-    font-family: 'Oxygen';
+@font-face {
+    font-family: 'Muli';
     font-weight: 300;
-    src: url('/fonts/Oxygen-Light.ttf');
+    font-style: normal;
+    src: url('/fonts/Muli-Light.ttf');
 }
 
 @font-face {
-    font-family: 'Oxygen';
+    font-family: 'Muli';
     font-weight: 400;
-    src: url('/fonts/Oxygen-Regular.ttf');
+    font-style: normal;
+    src: url('/fonts/Muli-Regular.ttf');
 }
 
 @font-face {
-    font-family: 'Oxygen';
-    font-weight: 700;
-    src: url('/fonts/Oxygen-Bold.ttf');
-}*/
+    font-family: 'Muli';
+    font-weight: 300;
+    font-style: italic;
+    src: url('/fonts/Muli-LightItalic.ttf');
+}
+
+@font-face {
+    font-family: 'Muli';
+    font-weight: 400;
+    font-style: italic;
+    src: url('/fonts/Muli-Italic.ttf');
+}
 
 html, body  {
     font-family: $font;

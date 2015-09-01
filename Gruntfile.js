@@ -71,4 +71,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-react');
     grunt.registerTask('default', ['react', 'sass', 'cssmin', 'uglify', 'clean']);
+    grunt.registerTask('dev', ['default', 'watch']);
 }
