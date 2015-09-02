@@ -1,3 +1,10 @@
+$(document).ready(function() {
+    var search = $("#search").height();
+    var sidebar = $("#aside").height();
+    $("#queueWrapper").height(sidebar-search)
+    console.log($("#queueWrapper").height()); 
+});
+
 var QueueRow = React.createClass({
     render: function() {
         var hacker = this.props.hacker;

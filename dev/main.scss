@@ -1,12 +1,15 @@
 @import "bourbon/bourbon";
 
 $aside-bg: #434752;
-$aside-width: 275px;
-
 $content-bg: #FBFCFD;
-
+$tag-color: #7ec5ed;
+$field-color: #fcfcfc;
 $positive: #65be71;
+
+$aside-width: 275px;
+$topbar-height: 70px;
 $font: 'Muli', sans-serif;
+
 @font-face {
     font-family: 'Muli';
     font-weight: 300;
@@ -35,6 +38,30 @@ $font: 'Muli', sans-serif;
     src: url('/fonts/Muli-Italic.ttf');
 }
 
+@mixin scrollbars($size, $foreground-color, $background-color: transparent) {
+    // For Google Chrome
+    ::-webkit-scrollbar {
+        width:  $size;
+        height: $size;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: $foreground-color;
+        border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: $background-color;
+    }
+
+  // For Internet Explorer
+    body {
+        scrollbar-face-color: $foreground-color;
+        scrollbar-track-color: $background-color;
+    }
+}
+@include scrollbars(7px, rgba(193,193,193,0.7));
+
 html, body  {
     font-family: $font;
     font-weight: 300;
@@ -45,6 +72,7 @@ html, body  {
     bottom: 0;
     height: 100%;
     background-color: $content-bg;
+    overflow: hidden;
     @include user-select(none);
 }
 
@@ -65,13 +93,6 @@ textarea:focus, input:focus{
     width: $aside-width;
     height: 100%;
     background-color: $aside-bg;
-    overflow-y: auto;
-    overflow-x: hidden;
-    &::-webkit-scrollbar {
-        visibility: hidden;
-        width: 10px;
-        display: none;
-    }
 }
 
 #content {
@@ -90,8 +111,11 @@ textarea:focus, input:focus{
     @include align-items(center);
     @include justify-content(center);
     margin-top: 0;
+    margin-left: 0;
+    top: 0;
+    left: 0;
     width: $aside-width;
-    height: 70px;
+    height: $topbar-height;
     border-bottom: 1px #575c6a solid;
     background-color: $aside-bg;
     input {
@@ -118,16 +142,19 @@ textarea:focus, input:focus{
 }
 
 #queueWrapper {
-    padding-top: 80px;
+    margin-top: ($topbar-height + 10);
+    height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 #queue {
     color: white;
-    width: ($aside-width);
+    width: $aside-width;
     margin-left: 0;
     border-collapse: collapse;
     tr {
-        height: 75px;
+        height: ($topbar-height + 5);
         cursor: pointer;
         &:hover {
             background-color: #4e525f;
@@ -175,15 +202,26 @@ textarea:focus, input:focus{
         font-family: $font;
         font-size: 24px;
         border: none;
-        background-color: transparent;
-        border-bottom: 2px black solid;
+        background-color: $field-color;
         height: 45px;
+        padding-left: 10px;
+        padding-right: 10px;
         width: 60%;
         min-width: 300px;
         margin-top: 15px;
         margin-bottom: 15px;
-        padding-left: 10px;
-        padding-right: 10px;
+        border-bottom: 2px black solid;
+    }
+    textarea {
+        font-family: $font;
+        font-size: 24px;
+        height: 200px;
+        width: 60%;
+        background-color: $field-color;
+        margin-top: 15px;
+        padding: 10px;
+        border: 2px black solid;
+        resize: none;
     }
     button {
         font-family: $font;
