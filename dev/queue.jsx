@@ -1,8 +1,7 @@
 $(document).ready(function() {
     var search = $("#search").height();
     var sidebar = $("#aside").height();
-    $("#queueWrapper").height(sidebar-search)
-    console.log($("#queueWrapper").height()); 
+    $("#queueWrapper").height(sidebar-search);
 });
 
 var QueueRow = React.createClass({

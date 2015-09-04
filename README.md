@@ -47,7 +47,6 @@ gem:
 
 ## Running the server
 You may run the Node.js server by typing:
-
 ```
 npm start
 ```
@@ -55,6 +54,11 @@ npm start
 However, during the development, the build step must be executed before the server starts. To do so:
 ```
 sh ./bin/build.sh
+```
+
+You also need to manually start MongoDB server after build script above:
+```
+mongod --dbpath dbpath
 ```
 
 Build step can also be refreshed upon changes by typing the following after the above step:
@@ -70,10 +74,14 @@ If you want to host your current development to the public before deployment, yo
 
 This will generate temporary URL for public to see.
 
+## Loading Sample Data
+For the purpose of development, sample data can be loaded by:
+```
+node ./samples/loadData.js
+```
 
 ## Testing
 You may run Mocha unit test by typing:
-
 ```
 npm test
 ```
