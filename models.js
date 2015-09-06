@@ -1,8 +1,10 @@
 const Mongoose = require('mongoose');
 
 var UserSchema = new Mongoose.Schema({
-	"email": String,
-	"password": String
+	"facebookID": String,
+	"name": String,
+	"picture": String,
+	"accessToken": String
 });
 
 var HackathonSchema = new Mongoose.Schema({

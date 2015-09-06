@@ -2,6 +2,14 @@ $(document).ready(function() {
     var search = $("#search").height();
     var sidebar = $("#aside").height();
     $("#queueWrapper").height(sidebar-search);
+    var login_link = document.getElementById("login_link")
+    if(login_link) {
+        login_link.href="/auth/facebook?queue=" + pathname;
+    }
+    var logout_link = document.getElementById("logout_link")
+    if(logout_link) {
+        logout_link.href="/logout?queue=" + pathname;
+    }
 });
 
 var QueueRow = React.createClass({

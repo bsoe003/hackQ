@@ -2,4 +2,7 @@ String.prototype.contains = function(substring) {
     return this.indexOf(substring) !== -1;
 }
 
-var firebase = new Firebase("https://hackq.firebaseio.com"+window.location.pathname+"/hackers");
+var pathname = window.location.pathname;
+var firebase = new Firebase("https://hackq.firebaseio.com" + pathname + "/hackers");
+pathname = pathname.replace("/q/", "");
+pathname = pathname.replace("#_=_", "");

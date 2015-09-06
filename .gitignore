@@ -15,7 +15,7 @@ npm-debug.log
 .idea
 .*.swp
 *.map
-env
+.env
 dbpath
 bourbon
 public/*.js
