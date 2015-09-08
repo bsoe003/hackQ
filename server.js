@@ -30,7 +30,7 @@ db.once('open', function (callback) {
 app.set('port', process.env.PORT || 3000);
 app.engine('html', handlebars({ defaultLayout: 'queue', extname: '.html' }));
 app.set('view engine', 'html');
-// app.use(logger("combined"));
+app.use(logger("combined"));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -48,28 +48,30 @@ app.use(passport.session());
 passport.use(new FacebookStrategy({
 	clientID: process.env.FACEBOOK_APP_ID,
 	clientSecret: process.env.FACEBOOK_APP_SECRET,
-	profileFields: ['id', 'displayName', 'photos']
+	profileFields: ['id', 'displayName', 'picture.type(large)']
 }, function(accessToken, refreshToken, profile, done) {
 	models.User.findOne({ "facebookID": profile.id }, function(err, user) {
 		if(err) return done(err);
+		var photo_url = profile.photos ? profile.photos[0].value : '/img/dummy_profile.png';
 		if(!user) {
 			var newUser = new models.User({
 				"facebookID": profile.id,
 				"name": profile.displayName,
-				"picture": profile.photos ? profile.photos[0].value : '/img/dummy_profile.png',
+				"picture": new Buffer(photo_url).toString('base64'),
 				"accessToken": accessToken
 			});
 			newUser.save(function(err) {
 				if(err) {
 					console.log(err);
 				} else {
-					console.log('User: ' + newUser.name +" created.");
+					console.log('User: ' + newUser.name +" has been created.");
 				}
-				return done(null, newUser);
+				return done(null, profile);
 			});
 		} else {
+			var photo_url = profile.photos ? profile.photos[0].value : '/img/dummy_profile.png';
 			user.name = profile.displayName;
-			user.picture = profile.photos ? profile.photos[0].value : '/img/dummy_profile.png';
+			user.picture = new Buffer(photo_url).toString('base64');
 			user.accessToken = accessToken;
 			user.save();
 			process.nextTick(function () {
@@ -93,15 +95,16 @@ app.listen(app.get('port'), function() {
 // list of routes
 app.get('/q/:hack_id', function(req, res) {
 	const hackID = req.params.hack_id;
-	models.Hackathon.findById(hackID, function(hackError, found) {
+	var query = models.Hackathon.where({"hackID": hackID});
+	query.findOne(function(hackError, found) {
 		if(hackError) {
 			res.status(404).send('Not found');
 		} else if (!req.isAuthenticated() || !req.user.id) {
 			var result = {};
 			result.hackathon = found;
-			res.render('index', result);
+			res.render('add_form', result);
 		} else {
-			var query = models.User.where({ "facebookID": req.user.id });
+			query = models.User.where({ "facebookID": req.user.id });
 			query.findOne(function(userError, user) {
 				if(userError) return userError;
 				var result = {};

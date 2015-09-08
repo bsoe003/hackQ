@@ -75,7 +75,7 @@ If you want to host your current development to the public before deployment, yo
 This will generate temporary URL for public to see.
 
 ## Loading Sample Data
-For the purpose of development, sample data can be loaded by:
+For the purpose of development, sample data can be loaded with following command while MongoDB server is running:
 ```
 node ./samples/loadData.js
 ```

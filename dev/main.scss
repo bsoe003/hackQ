@@ -234,6 +234,11 @@ textarea:focus, input:focus{
     }
 }
 
+header {
+    margin: 0 auto;
+    text-align: center;
+}
+
 .positive_button {
     background-color: $positive;
     color: white;

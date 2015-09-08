@@ -1,23 +1,9 @@
-$(document).ready(function() {
-    var search = $("#search").height();
-    var sidebar = $("#aside").height();
-    $("#queueWrapper").height(sidebar-search);
-    var login_link = document.getElementById("login_link")
-    if(login_link) {
-        login_link.href="/auth/facebook?queue=" + pathname;
-    }
-    var logout_link = document.getElementById("logout_link")
-    if(logout_link) {
-        logout_link.href="/logout?queue=" + pathname;
-    }
-});
-
 var QueueRow = React.createClass({
     render: function() {
         var hacker = this.props.hacker;
         return(
             <tr href={hacker[".key"]}>
-                <td className="hImgWrapper"><img className="hImg" src="/img/dummy_profile.png" alt="" /></td>
+                <td className="hImgWrapper"><img className="hImg" src={hacker.image} alt="" /></td>
                 <td className="hacker">
                     <span className="hName">{hacker.name}</span> <br/> <span className="hLocation">{hacker.location}</span>
                 </td>
@@ -31,7 +17,7 @@ var Queue = React.createClass({
         var rows = [];
         this.props.hackers.forEach(function(hacker) {
             if(!hacker.name.toLowerCase().contains(this.props.filterText.toLowerCase())) return;
-            rows.unshift(<QueueRow hacker={hacker} key={hacker.name} />);
+            rows.push(<QueueRow hacker={hacker} />);
         }.bind(this));
         return(
             <div id="queueWrapper">

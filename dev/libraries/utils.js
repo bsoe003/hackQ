@@ -3,6 +3,11 @@ String.prototype.contains = function(substring) {
 }
 
 var pathname = window.location.pathname;
+pathname = pathname.replace("#_=_", "");
 var firebase = new Firebase("https://hackq.firebaseio.com" + pathname + "/hackers");
 pathname = pathname.replace("/q/", "");
-pathname = pathname.replace("#_=_", "");
+$(document).ready(function() {
+    var search = $("#search").height();
+    var sidebar = $("#aside").height();
+    $("#queueWrapper").height(sidebar-search);
+});
