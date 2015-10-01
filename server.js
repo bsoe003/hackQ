@@ -28,7 +28,7 @@ db.once('open', function (callback) {
 
 // express setup
 app.set('port', process.env.PORT || 3000);
-app.engine('html', handlebars({ defaultLayout: 'queue', extname: '.html' }));
+app.engine('html', handlebars({ defaultLayout: 'main', extname: '.html' }));
 app.set('view engine', 'html');
 app.use(logger("combined"));
 app.use(cookieParser());
@@ -89,58 +89,93 @@ passport.deserializeUser(function(user, done) {
 
 // start web server
 app.listen(app.get('port'), function() {
-    console.log("Node.js server running on port %s", app.get('port'));
+  console.log("Node.js server running on port %s", app.get('port'));
 });
 
 // list of routes
-app.get('/q/:hack_id', function(req, res) {
+// TODO (eduardo) : abstract routes away from handlers
+app.get('/', function (req, res) {
+	res.render('register', {
+		content: 'hi'
+	})
+})
+
+
+app.get('/login', function (req, res) {
+	if (!app.locals.queueId) {
+		res.redirect('/');
+	} else {
+		res.render('index', {
+			body: '',
+	  	scripts: 'attachFBLogin();'
+		})
+	}
+})
+
+app.get('/q/:hack_id', function (req, res) {
 	const hackID = req.params.hack_id;
 	var query = models.Hackathon.where({"hackID": hackID});
-	query.findOne(function(hackError, found) {
-		if(hackError) {
+	query.findOne(function (hackError, found) {
+		if (hackError) {
 			res.status(404).send('Not found');
 		} else if (!req.isAuthenticated() || !req.user.id) {
-			var result = {};
-			result.hackathon = found;
-			res.render('add_form', result);
+			// sign in
+			app.locals.queueId = found.hackID;
+			res.redirect('/login');
 		} else {
+			app.locals.queueId = found.hackID;
 			query = models.User.where({ "facebookID": req.user.id });
 			query.findOne(function(userError, user) {
-				if(userError) return userError;
+				if (userError) return userError;
+
 				var result = {};
 				result.hackathon = found;
-				if(user) {
+				if (user) {
 					result.user = {};
 					result.user.facebookID = user.facebookID;
 					result.user.name = user.name;
 					result.user.picture = user.picture;
 				}
-				res.render('add_form', result);
+
+				result.scripts = 'displayQueue();';
+				res.render('queue', result);
 			});
 		}
 	});
 });
 
-app.get('/auth/facebook', function(req, res, next) {
-	passport.authenticate('facebook', {
-		callbackURL: '/auth/facebook/callback?queue='+req.query.queue
-	})(req, res, next);
+app.get('/auth/facebook', function (req, res, next) {
+	if (!app.locals.queueId) {
+		// should never happen
+		res.redirect('/');
+	} else {
+		passport.authenticate('facebook', {
+			callbackURL: '/auth/facebook/callback?queue='+app.locals.queueId,
+		})(req, res, next);
+	}
 });
-app.get('/auth/facebook/callback', function(req, res, next) {
-	passport.authenticate('facebook', {
-		callbackURL: '/auth/facebook/callback?queue='+req.query.queue,
-		failureRedirect: '/q/'+req.query.queue,
-		successRedirect: '/q/'+req.query.queue
-	})(req, res, next);
+
+app.get('/auth/facebook/callback', function (req, res, next) {
+	if (!app.locals.queueId) {
+		// should never happen
+		res.redirect('/');
+	} else {
+		passport.authenticate('facebook', {
+			callbackURL: '/auth/facebook/callback?queue='+app.locals.queueId,
+			failureRedirect: '/q/'+app.locals.queueId,
+			successRedirect: '/q/'+app.locals.queueId
+		})(req, res, next);
+	}
 });
+
 app.get('/logout', function(req, res) {
 	req.logout();
-	res.redirect('/q/'+req.query.queue);
+	res.redirect('/q/'+app.locals.queueId);
 });
 
 function ensureAuthenticated(req, res, next) {
-	if (req.isAuthenticated() && !!req.user.facebookID) { 
-		return next(); 
+	if (req.isAuthenticated() && !!req.user.facebookID) {
+		return next();
 	}
 	res.redirect('/');
 }
