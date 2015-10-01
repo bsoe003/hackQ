@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="/style.min.css" />
     <script type="text/javascript" src="/libraries.min.js"></script>
-    <title>HackQ: {{hackathon.name}}</title>
+    <title>HackQ</title>
 </head>
 <body>
-    <div id="wrapper">
-        <div id="aside"></div>
-        <div id="content">
-            {{{body}}}
-        </div>
-    </div>
-    <script src="/script.min.js"></script>
+  <div id="wrapper">
+    {{{body}}}
+  </div>
+  <script type="text/javascript" src="/script.min.js"></script>
+  <script>
+    {{{scripts}}}
+  </script>
 </body>
 </html>
